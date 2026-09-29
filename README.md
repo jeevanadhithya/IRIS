@@ -16,9 +16,9 @@
 
 <br/>
 
-| 🌐 **Web Dashboard** | 📱 **Mobile Application** | 🎯 **Official Submission** |
+| 🌐 **Live Web Dashboard** | 📱 **Android App (APK)** | 📁 **Evaluation Drive** |
 |:---:|:---:|:---:|
-| **Docker Port: 80** | **Flutter Release** | **SIH 2026 · PS-26178** |
+| [**iris-frontend-sih.vercel.app**](https://iris-frontend-sih.vercel.app/) | [**Download v1.0.0 Release**](https://github.com/jeevanadhithya/IRIS/releases/tag/v1.0.0) | [**Google Drive Assets**](https://drive.google.com/drive/folders/1S2ui2_ELrqhOKkWcbbIvXsx56H7OcEDZ?usp=drive_link) | **Flutter Release** | **SIH 2026 · PS-26178** |
 
 </div>
 

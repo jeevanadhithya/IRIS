@@ -26,10 +26,12 @@ class _MapScreenState extends State<MapScreen> {
   void initState() {
     super.initState();
     
-    _webController = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setBackgroundColor(const Color(0x00000000))
-      ..loadRequest(Uri.parse('https://your-vercel-frontend-domain.vercel.app'));
+    _webController = WebViewController();
+    if (!kIsWeb) {
+      _webController.setJavaScriptMode(JavaScriptMode.unrestricted);
+      _webController.setBackgroundColor(const Color(0x00000000));
+    }
+    _webController.loadRequest(Uri.parse('https://flashflood1.vercel.app'));
 
     _locationService.addListener(_onLocationUpdate);
     WidgetsBinding.instance.addPostFrameCallback((_) {

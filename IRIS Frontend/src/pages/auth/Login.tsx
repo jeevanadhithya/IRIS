@@ -27,8 +27,8 @@ export const Login: React.FC = () => {
   const navigate = useNavigate();
   const { setRole, login } = useIrisStore();
 
-  const [identifier, setIdentifier] = useState('citizen@geosense.in');
-  const [password, setPassword] = useState('password123');
+  const [identifier, setIdentifier] = useState('admin@iris.gov.in');
+  const [password, setPassword] = useState('Admin2026!');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -46,7 +46,7 @@ export const Login: React.FC = () => {
     setTimeout(() => {
       const lower = identifier.toLowerCase();
       // Auto-detect role from credentials
-      const isAdmin = lower.includes('admin') || lower.includes('commander') || lower.includes('eoc') || password === 'admin2026';
+      const isAdmin = lower.includes('admin') || lower.includes('commander') || lower.includes('eoc') || password === 'Admin2026!';
       const role = isAdmin ? 'ADMIN' : 'USER';
 
       login(identifier, isAdmin ? 'admin' : 'user');
@@ -64,10 +64,10 @@ export const Login: React.FC = () => {
   const handleFillDemo = (type: 'citizen' | 'admin') => {
     if (type === 'admin') {
       setIdentifier('commander@eoc.gov.in');
-      setPassword('admin2026');
+      setPassword('Admin2026!');
     } else {
-      setIdentifier('citizen@geosense.in');
-      setPassword('password123');
+      setIdentifier('citizen@iris.gov.in');
+      setPassword('Citizen2026!');
     }
   };
 

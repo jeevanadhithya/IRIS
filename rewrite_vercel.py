@@ -1,4 +1,7 @@
-{
+﻿import sys
+
+with open('IRIS Backend/vercel.json', 'w', encoding='utf-8') as f:
+    f.write('''{
   "version": 2,
   "builds": [
     {
@@ -12,4 +15,4 @@
       "destination": "/server.js"
     }
   ]
-}
+}''')

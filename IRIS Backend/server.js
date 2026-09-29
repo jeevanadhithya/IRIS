@@ -1072,12 +1072,14 @@ app.post('/api/digital-twin/user-activity', (req, res) => {
 });
 
 // Start Server
-server.listen(PORT, () => {
-  console.log(`====================================================`);
-  console.log(`  IRIS EOC Resilient Backend running on port ${PORT}`);
-  console.log(`  Motto: Sense -> Analyze -> Predict -> Warn -> Guide -> Respond`);
-  console.log(`  Twilio Gateway: ${twilioClient ? 'ENABLED' : 'SIMULATION FALLBACK'}`);
-  console.log(`====================================================`);
-});
+if (!process.env.VERCEL) {
+  server.listen(PORT, () => {
+    console.log('====================================================');
+    console.log('  IRIS EOC Resilient Backend running on port ' + PORT);
+    console.log('  Motto: Sense -> Analyze -> Predict -> Warn -> Guide -> Respond');
+    console.log('  Twilio Gateway: ' + (twilioClient ? 'ENABLED' : 'SIMULATION FALLBACK'));
+    console.log('====================================================');
+  });
+}
 // Vercel Serverless Export
 module.exports = app;
