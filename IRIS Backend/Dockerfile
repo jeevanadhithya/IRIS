@@ -1,0 +1,19 @@
+# Dockerfile for GEOSENSE Backend
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Copy dependency definitions
+COPY package*.json ./
+
+# Install production dependencies
+RUN npm install --omit=dev
+
+# Copy application source code
+COPY . .
+
+# Expose backend API port
+EXPOSE 3009
+
+# Start the Express server
+CMD ["node", "server.js"]

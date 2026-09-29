@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: iris-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - iris-net
+
+  backend:
+    build:
+      context: "./IRIS Backend"
+      dockerfile: Dockerfile
+    container_name: iris-backend
+    restart: unless-stopped
+    ports:
+      - "3009:3009"
+    environment:
+      - PORT=3009
+      - MONGODB_URI=mongodb://mongodb:27017/iris
+      - TWILIO_ACCOUNT_SID=${TWILIO_ACCOUNT_SID}
+      - TWILIO_AUTH_TOKEN=${TWILIO_AUTH_TOKEN}
+      - TWILIO_FROM=${TWILIO_FROM}
+      - TWILIO_FLOW_SID=${TWILIO_FLOW_SID}
+    depends_on:
+      - mongodb
+    networks:
+      - iris-net
+
+  frontend:
+    build:
+      context: "./IRIS Frontend"
+      dockerfile: Dockerfile
+    container_name: iris-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - iris-net
+
+networks:
+  iris-net:
+    driver: bridge
+
+volumes:
+  mongodb_data:
