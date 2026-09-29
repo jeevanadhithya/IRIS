@@ -1066,3 +1066,5 @@ server.listen(PORT, () => {
   console.log(`  Twilio Gateway: ${twilioClient ? 'ENABLED' : 'SIMULATION FALLBACK'}`);
   console.log(`====================================================`);
 });
+// Vercel Serverless Export
+module.exports = app;
