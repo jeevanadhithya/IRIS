@@ -75,7 +75,7 @@ export const UserShelters: React.FC = () => {
           const isNearlyFull = shelter.status === 'Nearly Full';
 
           return (
-            <Grid item xs={12} md={6} key={shelter.id}>
+            <Grid xs={12} md={6} key={shelter.id}>
               <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                 <CardContent sx={{ p: 2.5, flex: 1 }}>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>

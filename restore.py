@@ -1,4 +1,6 @@
-import 'package:flutter/material.dart';
+﻿import sys
+
+content = '''import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'theme/iris_theme.dart';
 import 'screens/home_screen.dart';
@@ -44,8 +46,8 @@ class MainNavigationShell extends StatefulWidget {
 class _MainNavigationShellState extends State<MainNavigationShell> {
   int _currentIndex = 0;
 
-  List<Widget> get _screens => [
-    HomeScreen(onNavigateTab: _onTabSelected),
+  final List<Widget> _screens = [
+    const HomeScreen(),
     const AlertsScreen(),
     const MapScreen(),
     const SosScreen(),
@@ -93,3 +95,6 @@ class _MainNavigationShellState extends State<MainNavigationShell> {
     );
   }
 }
+'''
+with open('iris_mobile/lib/main.dart', 'w', encoding='utf-8') as f:
+    f.write(content)

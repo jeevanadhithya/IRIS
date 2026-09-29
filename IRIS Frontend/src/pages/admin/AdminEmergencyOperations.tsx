@@ -69,21 +69,21 @@ export const AdminEmergencyOperations: React.FC = () => {
 
       {/* Top Telecomm KPIs */}
       <Grid container spacing={2.5} sx={{ mb: 3 }}>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid xs={12} sm={6} md={3}>
           <Card sx={{ p: 2 }}>
             <Typography variant="caption" sx={{ fontWeight: 700, color: '#64748b' }}>TOTAL POPULATION TARGETED</Typography>
             <Typography variant="h4" sx={{ fontWeight: 800, color: '#0f172a', mt: 0.5 }}>{commStats.totalTargeted}</Typography>
             <Typography variant="caption" sx={{ color: '#0284c7', fontWeight: 600 }}>Sector 3 & 4 Registry</Typography>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid xs={12} sm={6} md={3}>
           <Card sx={{ p: 2 }}>
             <Typography variant="caption" sx={{ fontWeight: 700, color: '#64748b' }}>SMS DELIVERED (TWILIO)</Typography>
             <Typography variant="h4" sx={{ fontWeight: 800, color: '#16a34a', mt: 0.5 }}>{commStats.smsDelivered}</Typography>
             <Typography variant="caption" sx={{ color: '#16a34a', fontWeight: 600 }}>97.8% Delivery Rate</Typography>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid xs={12} sm={6} md={3}>
           <Card sx={{ p: 2, bgcolor: '#f0fdf4', border: '1px solid #bbf7d0' }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <SafeIcon sx={{ color: '#16a34a' }} />
@@ -93,7 +93,7 @@ export const AdminEmergencyOperations: React.FC = () => {
             <Typography variant="caption" sx={{ color: '#15803d', fontWeight: 600 }}>Two-Way IVR / SMS Replies</Typography>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid xs={12} sm={6} md={3}>
           <Card sx={{ p: 2, bgcolor: '#fef2f2', border: '1px solid #fecaca' }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <NeedHelpIcon sx={{ color: '#dc2626' }} />
@@ -107,7 +107,7 @@ export const AdminEmergencyOperations: React.FC = () => {
 
       <Grid container spacing={3}>
         {/* Gateway Action Console */}
-        <Grid item xs={12} md={6}>
+        <Grid xs={12} md={6}>
           <Card sx={{ height: '100%' }}>
             <CardContent sx={{ p: 3 }}>
               <Typography variant="h6" sx={{ fontWeight: 800, color: '#0f172a', mb: 1 }}>
@@ -158,7 +158,7 @@ export const AdminEmergencyOperations: React.FC = () => {
         </Grid>
 
         {/* Deployed Field Response Teams */}
-        <Grid item xs={12} md={6}>
+        <Grid xs={12} md={6}>
           <Card sx={{ height: '100%' }}>
             <CardContent sx={{ p: 3 }}>
               <Typography variant="h6" sx={{ fontWeight: 800, color: '#0f172a', mb: 1 }}>

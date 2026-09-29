@@ -128,7 +128,7 @@ export const AdminLiveMonitoring: React.FC = () => {
 
       {/* Sensor Metric Cards */}
       <Grid container spacing={2.5} sx={{ mb: 3 }}>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid xs={12} sm={6} md={3}>
           <Card sx={{ p: 2 }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
               <Typography variant="caption" sx={{ color: '#64748b', fontWeight: 700 }}>TEMPERATURE</Typography>
@@ -141,7 +141,7 @@ export const AdminLiveMonitoring: React.FC = () => {
           </Card>
         </Grid>
 
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid xs={12} sm={6} md={3}>
           <Card sx={{ p: 2 }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
               <Typography variant="caption" sx={{ color: '#64748b', fontWeight: 700 }}>SOIL MOISTURE</Typography>
@@ -154,7 +154,7 @@ export const AdminLiveMonitoring: React.FC = () => {
           </Card>
         </Grid>
 
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid xs={12} sm={6} md={3}>
           <Card sx={{ p: 2 }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
               <Typography variant="caption" sx={{ color: '#64748b', fontWeight: 700 }}>WATER DISCHARGE</Typography>
@@ -167,7 +167,7 @@ export const AdminLiveMonitoring: React.FC = () => {
           </Card>
         </Grid>
 
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid xs={12} sm={6} md={3}>
           <Card sx={{ p: 2 }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
               <Typography variant="caption" sx={{ color: '#64748b', fontWeight: 700 }}>SEISMIC VIBRATION</Typography>
@@ -215,7 +215,7 @@ export const AdminLiveMonitoring: React.FC = () => {
 
       {/* Dual Charts: Vibration Analysis & Acoustic Mic Sensor */}
       <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
+        <Grid xs={12} md={6}>
           <Card>
             <CardContent sx={{ p: 3 }}>
               <Typography variant="subtitle1" sx={{ fontWeight: 800, color: '#0f172a', mb: 0.5 }}>
@@ -240,7 +240,7 @@ export const AdminLiveMonitoring: React.FC = () => {
           </Card>
         </Grid>
 
-        <Grid item xs={12} md={6}>
+        <Grid xs={12} md={6}>
           <Card>
             <CardContent sx={{ p: 3 }}>
               <Typography variant="subtitle1" sx={{ fontWeight: 800, color: '#0f172a', mb: 0.5 }}>

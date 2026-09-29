@@ -138,7 +138,7 @@ export const UserSafetyGuides: React.FC = () => {
 
           <Grid container spacing={3}>
             {/* DO's */}
-            <Grid item xs={12} md={6}>
+            <Grid xs={12} md={6}>
               <Card sx={{ bgcolor: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: 2 }}>
                 <CardContent sx={{ p: 2.5 }}>
                   <Typography variant="subtitle1" sx={{ fontWeight: 800, color: '#15803d', mb: 1.5, display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -162,7 +162,7 @@ export const UserSafetyGuides: React.FC = () => {
             </Grid>
 
             {/* DONT's */}
-            <Grid item xs={12} md={6}>
+            <Grid xs={12} md={6}>
               <Card sx={{ bgcolor: '#fef2f2', border: '1px solid #fecaca', borderRadius: 2 }}>
                 <CardContent sx={{ p: 2.5 }}>
                   <Typography variant="subtitle1" sx={{ fontWeight: 800, color: '#b91c1c', mb: 1.5, display: 'flex', alignItems: 'center', gap: 1 }}>

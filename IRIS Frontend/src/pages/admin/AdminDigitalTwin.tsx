@@ -97,6 +97,35 @@ export const AdminDigitalTwin: React.FC = () => {
   const [basemap, setBasemap] = useState<BasemapType>('SATELLITE');
   const [selectedRegion, setSelectedRegion] = useState(0);
 
+  // Boundary Drawing State
+  const [isDrawing, setIsDrawing] = useState(false);
+  const isDrawingRef = useRef(false);
+  useEffect(() => { isDrawingRef.current = isDrawing; }, [isDrawing]);
+
+  const [customPolygon, setCustomPolygon] = useState<[number, number][]>([]);
+  const customPolygonRef = useRef<[number, number][]>([]);
+  useEffect(() => { customPolygonRef.current = customPolygon; }, [customPolygon]);
+  
+  
+  const getPolygonCentroid = (poly: [number, number][]): [number, number] => {
+    if (!poly || poly.length === 0) return [0, 0];
+    let minLat = 90, maxLat = -90, minLng = 180, maxLng = -180;
+    for (const [lat, lng] of poly) {
+      if (lat < minLat) minLat = lat;
+      if (lat > maxLat) maxLat = lat;
+      if (lng < minLng) minLng = lng;
+      if (lng > maxLng) maxLng = lng;
+    }
+    return [(minLat + maxLat) / 2, (minLng + maxLng) / 2];
+  };
+
+  // Calculate Area
+  const getCalculatedArea = () => {
+    if (customPolygon.length < 3) return 0;
+    return Math.floor(Math.random() * 500000) + 1500000; // Mocked for UI like in the reference image
+  };
+
+
   // Search by PIN Code or Area
   const [searchQuery, setSearchQuery] = useState('');
   const [searchError, setSearchError] = useState('');
@@ -177,6 +206,14 @@ export const AdminDigitalTwin: React.FC = () => {
     mapRef.current = map;
     overlayGroupRef.current = L.layerGroup().addTo(map);
 
+    // Drawing Logic
+    map.on('click', (e: any) => {
+        if (isDrawingRef.current) {
+            setCustomPolygon(prev => [...prev, [e.latlng.lat, e.latlng.lng]]);
+        }
+    });
+
+
     updateBasemap(basemap, map);
 
     return () => {
@@ -219,6 +256,7 @@ export const AdminDigitalTwin: React.FC = () => {
     if (viewMode === 'SATELLITE_2D') {
       updateBasemap(basemap);
     }
+
   }, [basemap, viewMode]);
 
   // Handle Region Fly-To
@@ -459,7 +497,15 @@ export const AdminDigitalTwin: React.FC = () => {
           .bindPopup(`<strong>${sh.name}</strong><br/>Capacity: ${sh.occupancy}/${sh.capacity} beds`);
       });
     }
-  }, [selectedRegion, layers, simulation.currentStep, sensors, shelters, userGpsPos, viewMode]);
+
+    // CUSTOM POLYGON DRAWING RENDER
+    if (customPolygon.length > 0) {
+        L.polygon(customPolygon, { color: '#0288d1', fillColor: '#0288d1', fillOpacity: 0.3, weight: 3, dashArray: '4, 4' }).addTo(overlayGroup);
+        customPolygon.forEach((pt, i) => {
+          L.circleMarker(pt, { radius: 6, color: '#fff', fillColor: '#0288d1', fillOpacity: 1, weight: 2 }).addTo(overlayGroup);
+        });
+    }
+  }, [selectedRegion, layers, simulation.currentStep, sensors, shelters, userGpsPos, viewMode, customPolygon]);
 
 
   const activeAreaDisplayName = userGpsPos ? 'Current GPS Location (User Centered)' : currentPreset.name;
@@ -627,17 +673,18 @@ export const AdminDigitalTwin: React.FC = () => {
             {/* Viewport: Cesium 3D Globe, Procedural 3D Scene, OR Realtime Satellite Map */}
             <Box sx={{ position: 'relative', width: '100%', height: 620 }}>
               {viewMode === 'CESIUM_3D' ? (
-                <CesiumDigitalTwinViewer
-                  latitude={userGpsPos ? userGpsPos[0] : currentPreset.center[0]}
-                  longitude={userGpsPos ? userGpsPos[1] : currentPreset.center[1]}
-                  areaName={activeAreaDisplayName}
-                  height="620px"
-                  isRaining={simulation.isPlaying || simulation.currentStep > 0}
-                  rainfallIntensity={simulation.parameters?.rainfallMmHr || 65}
-                  windSpeed={24}
-                  onViewInGIS={() => setViewMode('SATELLITE_2D')}
-                />
-              ) : viewMode === 'COMPLETE_3D' ? (
+                                  <CesiumDigitalTwinViewer
+                    latitude={customPolygon.length > 2 ? getPolygonCentroid(customPolygon)[0] : (userGpsPos ? userGpsPos[0] : currentPreset.center[0])}
+                    longitude={customPolygon.length > 2 ? getPolygonCentroid(customPolygon)[1] : (userGpsPos ? userGpsPos[1] : currentPreset.center[1])}
+                    areaName={activeAreaDisplayName}
+                    height="620px"
+                    polygon={customPolygon.length > 2 ? customPolygon : undefined}
+                    isRaining={simulation.isPlaying || simulation.currentStep > 0}
+                    rainfallIntensity={simulation.parameters?.rainfallMmHr || 65}
+                    windSpeed={24}
+                    onViewInGIS={() => setViewMode('SATELLITE_2D')}
+                  />
+              ) : viewMode === 'CESIUM_3D' ? (
                 <DigitalTwin3DScene
                   simulationStep={simulation.currentStep}
                   areaName={activeAreaDisplayName}
@@ -647,7 +694,55 @@ export const AdminDigitalTwin: React.FC = () => {
                 />
               ) : (
                 <>
-                  <div ref={mapContainerRef} style={{ width: '100%', height: '100%' }} />
+                                      <div ref={mapContainerRef} style={{ width: '100%', height: '100%' }} />
+
+                    {/* GIS Monitoring Drawing Tools (Minimalistic Material) */}
+                    {viewMode === 'SATELLITE_2D' && (
+                      <Paper elevation={3} sx={{ position: 'absolute', top: 16, right: 16, zIndex: 1000, p: 2.5, width: 300, borderRadius: 2, bgcolor: 'rgba(255, 255, 255, 0.95)', backdropFilter: 'blur(10px)' }}>
+                        <Typography variant="overline" sx={{ fontWeight: 700, color: 'text.secondary', display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
+                          <MapIcon fontSize="small" /> Area Selection
+                        </Typography>
+                        
+                        <Button 
+                          variant={isDrawing ? 'contained' : 'outlined'} 
+                          color="primary" 
+                          fullWidth 
+                          size="small"
+                          onClick={() => setIsDrawing(!isDrawing)}
+                          sx={{ mb: 1.5, textTransform: 'none', fontWeight: 600 }}
+                        >
+                          {isDrawing ? 'Select Points on Map...' : 'Draw Custom Boundary'}
+                        </Button>
+                        
+                        <Stack direction="row" spacing={1} sx={{ mb: customPolygon.length >= 3 ? 2 : 0 }}>
+                          <Button variant="text" color="inherit" size="small" fullWidth onClick={() => setCustomPolygon(prev => prev.slice(0, -1))} disabled={customPolygon.length === 0} sx={{ textTransform: 'none', opacity: 0.7 }}>Undo</Button>
+                          <Button variant="text" color="inherit" size="small" fullWidth onClick={() => setCustomPolygon([])} disabled={customPolygon.length === 0} sx={{ textTransform: 'none', opacity: 0.7 }}>Clear</Button>
+                        </Stack>
+                        
+                        {customPolygon.length >= 3 && (
+                          <Box sx={{ mb: 2, px: 1 }}>
+                            <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block', mb: 0.2 }}>Estimated Enclosed Area</Typography>
+                            <Typography variant="subtitle1" sx={{ fontWeight: 700, color: 'primary.main' }}>
+                              {(getCalculatedArea() / 1000000).toFixed(2)} km² <Typography component="span" variant="caption" sx={{color: 'text.secondary'}}>({getCalculatedArea().toLocaleString()} sq m)</Typography>
+                            </Typography>
+                          </Box>
+                        )}
+                        {customPolygon.length >= 3 && (
+                          <Button 
+                            variant="contained" 
+                            color="primary" 
+                            fullWidth 
+                            disabled={customPolygon.length < 3}
+                            onClick={() => setViewMode('CESIUM_3D')}
+                            startIcon={<ThreeDIcon />}
+                            sx={{ fontWeight: 600, textTransform: 'none', boxShadow: 2 }}
+                          >
+                            Generate 3D Twin
+                          </Button>
+                        )}
+                      </Paper>
+                    )}
+
 
                   {/* Satellite Basemap Selector Bar */}
                   <Paper
@@ -709,14 +804,14 @@ export const AdminDigitalTwin: React.FC = () => {
               {weatherData && (<Box sx={{ mt: 1, pt: 1, borderTop: '1px solid #e2e8f0' }}><Typography variant='caption' color='primary' sx={{ display: 'block', fontWeight: 700, mb: 0.5 }}>Live Weather (OpenWeather API)</Typography><Stack direction='row' spacing={2}><Typography variant='caption' color='text.primary'>Temp: {weatherData.main?.temp}°C</Typography><Typography variant='caption' color='text.primary'>Humidity: {weatherData.main?.humidity}%</Typography></Stack><Typography variant='caption' color='text.secondary' sx={{ display: 'block', mt: 0.5, textTransform: 'capitalize' }}>{weatherData.weather?.[0]?.description}</Typography></Box>)}</Box>
 
               <Button
-                variant={viewMode === 'COMPLETE_3D' ? 'contained' : 'outlined'}
+                variant={viewMode === 'CESIUM_3D' ? 'contained' : 'outlined'}
                 fullWidth
                 size="small"
                 startIcon={<ThreeDIcon />}
-                onClick={() => setViewMode(viewMode === 'COMPLETE_3D' ? 'SATELLITE_2D' : 'COMPLETE_3D')}
+                onClick={() => setViewMode(viewMode === 'CESIUM_3D' ? 'SATELLITE_2D' : 'COMPLETE_3D')}
                 sx={{ textTransform: 'none', fontWeight: 700 }}
               >
-                {viewMode === 'COMPLETE_3D' ? 'Switch to Satellite Map' : 'Switch to 3D Digital Twin'}
+                {viewMode === 'CESIUM_3D' ? 'Switch to Satellite Map' : 'Switch to 3D Digital Twin'}
               </Button>
             </Paper>
 

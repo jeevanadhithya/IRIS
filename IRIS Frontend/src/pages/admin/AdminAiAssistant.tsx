@@ -246,7 +246,7 @@ Initiating 5-stage cascading disaster sequence:
 
       <Grid container spacing={3}>
         {/* Chat Area */}
-        <Grid item xs={12} lg={8}>
+        <Grid xs={12} lg={8}>
           <Paper
             variant="outlined"
             sx={{
@@ -403,7 +403,7 @@ Initiating 5-stage cascading disaster sequence:
         </Grid>
 
         {/* Right Tactical Sidebar */}
-        <Grid item xs={12} lg={4}>
+        <Grid xs={12} lg={4}>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
             {/* Quick Tactical Inquiries */}
             <Paper variant="outlined" sx={{ p: 2.5, bgcolor: '#ffffff', borderRadius: 2 }}>

@@ -132,7 +132,7 @@ export const UserHome: React.FC = () => {
             IMMEDIATE EMERGENCY ACTIONS
           </Typography>
           <Grid container spacing={1.5} sx={{ mt: 0.5 }}>
-            <Grid item xs={6} sm={3}>
+            <Grid xs={6} sm={3}>
               <Button 
                 fullWidth 
                 variant="outlined" 
@@ -143,7 +143,7 @@ export const UserHome: React.FC = () => {
                 View Active Alerts
               </Button>
             </Grid>
-            <Grid item xs={6} sm={3}>
+            <Grid xs={6} sm={3}>
               <Button 
                 fullWidth 
                 variant="outlined" 
@@ -154,7 +154,7 @@ export const UserHome: React.FC = () => {
                 Safe Evacuation
               </Button>
             </Grid>
-            <Grid item xs={6} sm={3}>
+            <Grid xs={6} sm={3}>
               <Button 
                 fullWidth 
                 variant="outlined" 
@@ -165,7 +165,7 @@ export const UserHome: React.FC = () => {
                 Find Shelter
               </Button>
             </Grid>
-            <Grid item xs={6} sm={3}>
+            <Grid xs={6} sm={3}>
               <Button 
                 fullWidth 
                 variant="outlined" 
@@ -183,7 +183,7 @@ export const UserHome: React.FC = () => {
       {/* Grid: Live Environmental Metrics & Nearest Emergency Shelter */}
       <Grid container spacing={3}>
         {/* Environmental Telemetry Snapshot */}
-        <Grid item xs={12} md={7}>
+        <Grid xs={12} md={7}>
           <Card sx={{ height: '100%' }}>
             <CardContent sx={{ p: 2.5 }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
@@ -199,7 +199,7 @@ export const UserHome: React.FC = () => {
               </Box>
 
               <Grid container spacing={2}>
-                <Grid item xs={6} sm={3}>
+                <Grid xs={6} sm={3}>
                   <Box sx={{ p: 1.5, bgcolor: '#f8fafc', borderRadius: 2, border: '1px solid #e2e8f0', textAlign: 'center' }}>
                     <ThermostatIcon sx={{ color: '#dc2626', mb: 0.5 }} />
                     <Typography variant="caption" sx={{ color: '#64748b', display: 'block' }}>Ambient Temp</Typography>
@@ -207,7 +207,7 @@ export const UserHome: React.FC = () => {
                     <Typography variant="caption" sx={{ color: '#16a34a', fontWeight: 600 }}>Normal</Typography>
                   </Box>
                 </Grid>
-                <Grid item xs={6} sm={3}>
+                <Grid xs={6} sm={3}>
                   <Box sx={{ p: 1.5, bgcolor: '#f8fafc', borderRadius: 2, border: '1px solid #e2e8f0', textAlign: 'center' }}>
                     <WaterIcon sx={{ color: '#0284c7', mb: 0.5 }} />
                     <Typography variant="caption" sx={{ color: '#64748b', display: 'block' }}>Rainfall Rate</Typography>
@@ -215,7 +215,7 @@ export const UserHome: React.FC = () => {
                     <Typography variant="caption" sx={{ color: '#ea580c', fontWeight: 600 }}>Heavy Rain</Typography>
                   </Box>
                 </Grid>
-                <Grid item xs={6} sm={3}>
+                <Grid xs={6} sm={3}>
                   <Box sx={{ p: 1.5, bgcolor: '#f8fafc', borderRadius: 2, border: '1px solid #e2e8f0', textAlign: 'center' }}>
                     <WaterIcon sx={{ color: '#d97706', mb: 0.5 }} />
                     <Typography variant="caption" sx={{ color: '#64748b', display: 'block' }}>Soil Moisture</Typography>
@@ -223,7 +223,7 @@ export const UserHome: React.FC = () => {
                     <Typography variant="caption" sx={{ color: '#dc2626', fontWeight: 600 }}>High Saturation</Typography>
                   </Box>
                 </Grid>
-                <Grid item xs={6} sm={3}>
+                <Grid xs={6} sm={3}>
                   <Box sx={{ p: 1.5, bgcolor: '#f8fafc', borderRadius: 2, border: '1px solid #e2e8f0', textAlign: 'center' }}>
                     <AirIcon sx={{ color: '#7c3aed', mb: 0.5 }} />
                     <Typography variant="caption" sx={{ color: '#64748b', display: 'block' }}>PM2.5 Index</Typography>
@@ -243,7 +243,7 @@ export const UserHome: React.FC = () => {
         </Grid>
 
         {/* Nearest Shelter Card */}
-        <Grid item xs={12} md={5}>
+        <Grid xs={12} md={5}>
           <Card sx={{ height: '100%' }}>
             <CardContent sx={{ p: 2.5 }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1.5 }}>

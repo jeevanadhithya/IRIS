@@ -104,7 +104,7 @@ export const AdminPredictions: React.FC = () => {
           const badgeColor = isCritical ? '#dc2626' : isHigh ? '#ea580c' : '#16a34a';
 
           return (
-            <Grid item xs={12} md={6} key={idx}>
+            <Grid xs={12} md={6} key={idx}>
               <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', borderLeft: `5px solid ${badgeColor}` }}>
                 <CardContent sx={{ p: 3, flex: 1 }}>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1.5 }}>

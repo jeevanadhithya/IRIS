@@ -102,7 +102,7 @@ export const AdminAnalytics: React.FC = () => {
 
       <Grid container spacing={3}>
         {/* Pie Chart: Hazard Shares */}
-        <Grid item xs={12} md={5}>
+        <Grid xs={12} md={5}>
           <Card sx={{ height: '100%' }}>
             <CardContent sx={{ p: 3 }}>
               <Typography variant="h6" sx={{ fontWeight: 800, color: '#0f172a', mb: 1 }}>
@@ -126,7 +126,7 @@ export const AdminAnalytics: React.FC = () => {
         </Grid>
 
         {/* Bar Chart: Predictive Accuracy */}
-        <Grid item xs={12} md={7}>
+        <Grid xs={12} md={7}>
           <Card sx={{ height: '100%' }}>
             <CardContent sx={{ p: 3 }}>
               <Typography variant="h6" sx={{ fontWeight: 800, color: '#0f172a', mb: 1 }}>

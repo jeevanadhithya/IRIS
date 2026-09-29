@@ -1,3 +1,4 @@
+require("dotenv").config();
 const twilio = require("twilio");
 
 // Twilio credentials
@@ -12,7 +13,7 @@ async function triggerDisaster(disasterType, toNumber) {
     .executions
     .create({
       to: toNumber,
-      from: "+17656456852", // Twilio SMS-enabled number
+      from: "+16505824250", // Twilio SMS-enabled number
       parameters: {
         disasterType: disasterType
       }

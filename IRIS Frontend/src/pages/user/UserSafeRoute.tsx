@@ -220,7 +220,7 @@ export const UserSafeRoute: React.FC = () => {
       {/* Main Content Layout */}
       <Grid container spacing={2.5}>
         {/* Left Column: GNN Model & Corridor Exposure */}
-        <Grid item xs={12} lg={4}>
+        <Grid xs={12} lg={4}>
           <Stack spacing={2}>
             {/* GNN-Transformer AI Architecture Card */}
             <Card sx={{ border: '1px solid #cbd5e1', borderRadius: 2.5, boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
@@ -363,7 +363,7 @@ export const UserSafeRoute: React.FC = () => {
         </Grid>
 
         {/* Right Column: 3D Satellite Digital Twin View or 2D Schematic */}
-        <Grid item xs={12} lg={8}>
+        <Grid xs={12} lg={8}>
           <Card sx={{ border: '1px solid #cbd5e1', borderRadius: 2.5, overflow: 'hidden', height: '100%', minHeight: 700, display: 'flex', flexDirection: 'column' }}>
             <Box sx={{ p: 1.5, bgcolor: '#0f172a', color: '#ffffff', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>

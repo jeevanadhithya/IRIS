@@ -1,0 +1,271 @@
+{
+  "description": "IRIS Automated Disaster Alert Flow (Voice + SMS Only)",
+  "states": [
+    {
+      "name": "Trigger",
+      "type": "trigger",
+      "transitions": [
+        { "event": "incomingMessage" },
+        { "event": "incomingCall" },
+        { "event": "incomingConversationMessage" },
+        { "next": "split_disaster_type", "event": "incomingRequest" },
+        { "event": "incomingParent" }
+      ],
+      "properties": {
+        "offset": { "x": 0, "y": 0 }
+      }
+    },
+    {
+      "name": "split_disaster_type",
+      "type": "split-based-on",
+      "transitions": [
+        {
+          "next": "call_flood",
+          "event": "match",
+          "conditions": [
+            {
+              "friendly_name": "If Flood",
+              "arguments": ["{{trigger.request.parameters.disasterType}}"],
+              "type": "equal_to",
+              "value": "flood"
+            }
+          ]
+        },
+        {
+          "next": "call_earthquake",
+          "event": "match",
+          "conditions": [
+            {
+              "friendly_name": "If Earthquake",
+              "arguments": ["{{trigger.request.parameters.disasterType}}"],
+              "type": "equal_to",
+              "value": "earthquake"
+            }
+          ]
+        },
+        {
+          "next": "call_cyclone",
+          "event": "match",
+          "conditions": [
+            {
+              "friendly_name": "If Cyclone",
+              "arguments": ["{{trigger.request.parameters.disasterType}}"],
+              "type": "equal_to",
+              "value": "cyclone"
+            }
+          ]
+        },
+        {
+          "next": "call_landslide",
+          "event": "match",
+          "conditions": [
+            {
+              "friendly_name": "If Landslide",
+              "arguments": ["{{trigger.request.parameters.disasterType}}"],
+              "type": "equal_to",
+              "value": "landslide"
+            }
+          ]
+        },
+        {
+          "next": "sms_generic",
+          "event": "noMatch"
+        }
+      ],
+      "properties": {
+        "input": "{{trigger.request.parameters.disasterType}}",
+        "offset": { "x": 0, "y": 200 }
+      }
+    },
+    {
+      "name": "call_flood",
+      "type": "make-outgoing-call-v2",
+      "transitions": [
+        { "next": "say_flood", "event": "answered" },
+        { "next": "sms_flood", "event": "busy" },
+        { "next": "sms_flood", "event": "noAnswer" },
+        { "next": "sms_flood", "event": "failed" }
+      ],
+      "properties": {
+        "from": "{{flow.channel.address}}",
+        "to": "{{contact.channel.address}}",
+        "timeout": 60,
+        "offset": { "x": -600, "y": 500 }
+      }
+    },
+    {
+      "name": "say_flood",
+      "type": "say-play",
+      "transitions": [
+        { "next": "sms_flood", "event": "audioComplete" }
+      ],
+      "properties": {
+        "voice": "Google.ta-IN-Chirp3-HD-Aoede",
+        "language": "ta-IN",
+        "say": "அவசர எச்சரிக்கை. உங்கள் பகுதியில் வெள்ள அபாயம் கண்டறியப்பட்டுள்ளது. உடனடியாக பாதுகாப்பான இடத்திற்கு செல்லவும்.",
+        "offset": { "x": -600, "y": 800 }
+      }
+    },
+    {
+      "name": "sms_flood",
+      "type": "send-message",
+      "transitions": [
+        { "event": "sent" },
+        { "event": "failed" }
+      ],
+      "properties": {
+        "from": "{{flow.channel.address}}",
+        "to": "{{contact.channel.address}}",
+        "body": "🌊🚨 Flood Alert\nHeavy rain has raised water levels. Avoid low-lying areas and flooded roads. Move to higher ground if advised.",
+        "offset": { "x": -600, "y": 1100 }
+      }
+    },
+    {
+      "name": "call_earthquake",
+      "type": "make-outgoing-call-v2",
+      "transitions": [
+        { "next": "say_earthquake", "event": "answered" },
+        { "next": "sms_earthquake", "event": "busy" },
+        { "next": "sms_earthquake", "event": "noAnswer" },
+        { "next": "sms_earthquake", "event": "failed" }
+      ],
+      "properties": {
+        "from": "{{flow.channel.address}}",
+        "to": "{{contact.channel.address}}",
+        "timeout": 60,
+        "offset": { "x": -200, "y": 500 }
+      }
+    },
+    {
+      "name": "say_earthquake",
+      "type": "say-play",
+      "transitions": [
+        { "next": "sms_earthquake", "event": "audioComplete" }
+      ],
+      "properties": {
+        "voice": "Google.ta-IN-Chirp3-HD-Aoede",
+        "language": "ta-IN",
+        "say": "அவசர எச்சரிக்கை. உங்கள் பகுதியில் நிலநடுக்கம் ஏற்பட்டுள்ளது. உடனடியாக குனிந்து பாதுகாப்பு நிலை எடுக்கவும்.",
+        "offset": { "x": -200, "y": 800 }
+      }
+    },
+    {
+      "name": "sms_earthquake",
+      "type": "send-message",
+      "transitions": [
+        { "event": "sent" },
+        { "event": "failed" }
+      ],
+      "properties": {
+        "from": "{{flow.channel.address}}",
+        "to": "{{contact.channel.address}}",
+        "body": "🌍🚨 Earthquake Alert\nSeismic activity detected nearby. Drop, Cover & Hold immediately. Stay away from windows.",
+        "offset": { "x": -200, "y": 1100 }
+      }
+    },
+    {
+      "name": "call_cyclone",
+      "type": "make-outgoing-call-v2",
+      "transitions": [
+        { "next": "say_cyclone", "event": "answered" },
+        { "next": "sms_cyclone", "event": "busy" },
+        { "next": "sms_cyclone", "event": "noAnswer" },
+        { "next": "sms_cyclone", "event": "failed" }
+      ],
+      "properties": {
+        "from": "{{flow.channel.address}}",
+        "to": "{{contact.channel.address}}",
+        "timeout": 60,
+        "offset": { "x": 200, "y": 500 }
+      }
+    },
+    {
+      "name": "say_cyclone",
+      "type": "say-play",
+      "transitions": [
+        { "next": "sms_cyclone", "event": "audioComplete" }
+      ],
+      "properties": {
+        "voice": "Google.ta-IN-Chirp3-HD-Aoede",
+        "language": "ta-IN",
+        "say": "அவசர எச்சரிக்கை. உங்கள் பகுதியில் புயல் அபாயம் உள்ளது. வீட்டிற்குள் பாதுகாப்பாக இருங்கள்.",
+        "offset": { "x": 200, "y": 800 }
+      }
+    },
+    {
+      "name": "sms_cyclone",
+      "type": "send-message",
+      "transitions": [
+        { "event": "sent" },
+        { "event": "failed" }
+      ],
+      "properties": {
+        "from": "{{flow.channel.address}}",
+        "to": "{{contact.channel.address}}",
+        "body": "🌪️🚨 Cyclone Warning\nStrong winds and heavy rain expected. Stay indoors and secure loose items.",
+        "offset": { "x": 200, "y": 1100 }
+      }
+    },
+    {
+      "name": "call_landslide",
+      "type": "make-outgoing-call-v2",
+      "transitions": [
+        { "next": "say_landslide", "event": "answered" },
+        { "next": "sms_landslide", "event": "busy" },
+        { "next": "sms_landslide", "event": "noAnswer" },
+        { "next": "sms_landslide", "event": "failed" }
+      ],
+      "properties": {
+        "from": "{{flow.channel.address}}",
+        "to": "{{contact.channel.address}}",
+        "timeout": 60,
+        "offset": { "x": 600, "y": 500 }
+      }
+    },
+    {
+      "name": "say_landslide",
+      "type": "say-play",
+      "transitions": [
+        { "next": "sms_landslide", "event": "audioComplete" }
+      ],
+      "properties": {
+        "voice": "Google.ta-IN-Chirp3-HD-Aoede",
+        "language": "ta-IN",
+        "say": "அவசர எச்சரிக்கை. உங்கள் பகுதியில் மண் சரிவு அபாயம் உள்ளது. பாதுகாப்பான இடத்திற்கு உடனடியாக செல்லவும்.",
+        "offset": { "x": 600, "y": 800 }
+      }
+    },
+    {
+      "name": "sms_landslide",
+      "type": "send-message",
+      "transitions": [
+        { "event": "sent" },
+        { "event": "failed" }
+      ],
+      "properties": {
+        "from": "{{flow.channel.address}}",
+        "to": "{{contact.channel.address}}",
+        "body": "🏔️🚨 Landslide Alert\nRisk of landslide reported in your area. Avoid hill roads and steep slopes.",
+        "offset": { "x": 600, "y": 1100 }
+      }
+    },
+    {
+      "name": "sms_generic",
+      "type": "send-message",
+      "transitions": [
+        { "event": "sent" },
+        { "event": "failed" }
+      ],
+      "properties": {
+        "from": "{{flow.channel.address}}",
+        "to": "{{contact.channel.address}}",
+        "body": "🚨 IRIS Alert: A hazard event has been detected in your area. Stay alert and follow local authority instructions.",
+        "offset": { "x": 1000, "y": 500 }
+      }
+    }
+  ],
+  "initial_state": "Trigger",
+  "flags": {
+    "allow_concurrent_calls": true
+  }
+}

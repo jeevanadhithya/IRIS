@@ -148,7 +148,7 @@ export const UserNeedHelp: React.FC = () => {
 
               <Grid container spacing={1.5} sx={{ mb: 3 }}>
                 {emergencyOptions.map((opt) => (
-                  <Grid item xs={12} sm={6} key={opt.value}>
+                  <Grid xs={12} sm={6} key={opt.value}>
                     <Box
                       onClick={() => setEmergencyType(opt.value)}
                       sx={{
@@ -176,7 +176,7 @@ export const UserNeedHelp: React.FC = () => {
               </Typography>
 
               <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
+                <Grid xs={12} sm={6}>
                   <TextField
                     fullWidth
                     label="Current Sector / Address"
@@ -187,7 +187,7 @@ export const UserNeedHelp: React.FC = () => {
                   />
                 </Grid>
 
-                <Grid item xs={12} sm={6}>
+                <Grid xs={12} sm={6}>
                   <TextField
                     fullWidth
                     label="Number of Persons with You"
@@ -198,7 +198,7 @@ export const UserNeedHelp: React.FC = () => {
                   />
                 </Grid>
 
-                <Grid item xs={12}>
+                <Grid xs={12}>
                   <FormControlLabel
                     control={
                       <Checkbox 
@@ -211,7 +211,7 @@ export const UserNeedHelp: React.FC = () => {
                   />
                 </Grid>
 
-                <Grid item xs={12}>
+                <Grid xs={12}>
                   <TextField
                     fullWidth
                     multiline
@@ -223,7 +223,7 @@ export const UserNeedHelp: React.FC = () => {
                   />
                 </Grid>
 
-                <Grid item xs={12}>
+                <Grid xs={12}>
                   <Button
                     type="submit"
                     fullWidth

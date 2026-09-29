@@ -111,7 +111,7 @@ export const AdminSimulation: React.FC = () => {
       {activeTab === 'CONSOLE' && (
         <Grid container spacing={3}>
           {/* Left Column: Timeline & Live Event Progression */}
-          <Grid item xs={12} lg={8}>
+          <Grid xs={12} lg={8}>
             {/* Timeline Stepper Controls */}
             <Card sx={{ mb: 3 }}>
               <CardContent sx={{ p: 3 }}>
@@ -140,7 +140,7 @@ export const AdminSimulation: React.FC = () => {
                     const isPassed = simulation.currentStep >= idx;
                     const isCurrent = simulation.currentStep === idx;
                     return (
-                      <Grid item xs={12} sm={2.4} key={idx}>
+                      <Grid xs={12} sm={2.4} key={idx}>
                         <Box
                           onClick={() => advanceSimulationStep(idx)}
                           sx={{
@@ -293,7 +293,7 @@ export const AdminSimulation: React.FC = () => {
           </Grid>
 
           {/* Right Column: Scenario Configurator & Impact Summary */}
-          <Grid item xs={12} lg={4}>
+          <Grid xs={12} lg={4}>
             {/* Scenario Builder Card */}
             <Card sx={{ mb: 3 }}>
               <CardContent sx={{ p: 2.5 }}>
@@ -354,7 +354,7 @@ export const AdminSimulation: React.FC = () => {
                 </Typography>
 
                 <Grid container spacing={1.5}>
-                  <Grid item xs={6}>
+                  <Grid xs={6}>
                     <Box sx={{ p: 1.5, bgcolor: '#ffffff', borderRadius: 2, border: '1px solid #e2e8f0', textAlign: 'center' }}>
                       <Typography variant="caption" sx={{ color: '#64748b' }}>Inundation Area</Typography>
                       <Typography variant="h5" sx={{ fontWeight: 800, color: '#0284c7' }}>
@@ -363,7 +363,7 @@ export const AdminSimulation: React.FC = () => {
                     </Box>
                   </Grid>
 
-                  <Grid item xs={6}>
+                  <Grid xs={6}>
                     <Box sx={{ p: 1.5, bgcolor: '#ffffff', borderRadius: 2, border: '1px solid #e2e8f0', textAlign: 'center' }}>
                       <Typography variant="caption" sx={{ color: '#64748b' }}>Buildings Exposed</Typography>
                       <Typography variant="h5" sx={{ fontWeight: 800, color: '#0f172a' }}>
@@ -372,7 +372,7 @@ export const AdminSimulation: React.FC = () => {
                     </Box>
                   </Grid>
 
-                  <Grid item xs={6}>
+                  <Grid xs={6}>
                     <Box sx={{ p: 1.5, bgcolor: '#ffffff', borderRadius: 2, border: '1px solid #e2e8f0', textAlign: 'center' }}>
                       <Typography variant="caption" sx={{ color: '#64748b' }}>Severed Roads</Typography>
                       <Typography variant="h5" sx={{ fontWeight: 800, color: '#dc2626' }}>
@@ -381,7 +381,7 @@ export const AdminSimulation: React.FC = () => {
                     </Box>
                   </Grid>
 
-                  <Grid item xs={6}>
+                  <Grid xs={6}>
                     <Box sx={{ p: 1.5, bgcolor: '#ffffff', borderRadius: 2, border: '1px solid #e2e8f0', textAlign: 'center' }}>
                       <Typography variant="caption" sx={{ color: '#64748b' }}>Pop. at Risk</Typography>
                       <Typography variant="h5" sx={{ fontWeight: 800, color: '#ea580c' }}>
@@ -406,7 +406,7 @@ export const AdminSimulation: React.FC = () => {
           </Typography>
 
           <Grid container spacing={3}>
-            <Grid item xs={12} md={6}>
+            <Grid xs={12} md={6}>
               <Box sx={{ p: 2.5, bgcolor: '#f0f9ff', borderRadius: 2, border: '1px solid #bae6fd' }}>
                 <Typography variant="subtitle1" sx={{ fontWeight: 800, color: '#0369a1', mb: 1 }}>
                   Scenario A: Baseline 50 mm/hr Cloudburst
@@ -418,7 +418,7 @@ export const AdminSimulation: React.FC = () => {
               </Box>
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid xs={12} md={6}>
               <Box sx={{ p: 2.5, bgcolor: '#fef2f2', borderRadius: 2, border: '1px solid #fecaca' }}>
                 <Typography variant="subtitle1" sx={{ fontWeight: 800, color: '#b91c1c', mb: 1 }}>
                   Scenario B: Catastrophic 110 mm/hr Compound Cloudburst
@@ -439,7 +439,7 @@ export const AdminSimulation: React.FC = () => {
             Before / After Environmental Assessment
           </Typography>
           <Grid container spacing={3} sx={{ mt: 1 }}>
-            <Grid item xs={12} md={6}>
+            <Grid xs={12} md={6}>
               <Box sx={{ p: 2, bgcolor: '#f8fafc', borderRadius: 2, border: '1px solid #e2e8f0' }}>
                 <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#16a34a', mb: 1 }}>BEFORE DISASTER</Typography>
                 <Typography variant="body2">• River Level: 1.2m (Normal discharge)</Typography>
@@ -447,7 +447,7 @@ export const AdminSimulation: React.FC = () => {
                 <Typography variant="body2">• All arterial corridors clear for transit</Typography>
               </Box>
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid xs={12} md={6}>
               <Box sx={{ p: 2, bgcolor: '#fef2f2', borderRadius: 2, border: '1px solid #fecaca' }}>
                 <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#dc2626', mb: 1 }}>AFTER SIMULATED CASCADING IMPACT</Typography>
                 <Typography variant="body2">• River Level: 3.8m (Exceeding critical threshold)</Typography>

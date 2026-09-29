@@ -118,7 +118,7 @@ export const AdminSystem: React.FC = () => {
 
       {/* Overview Stat Cards */}
       <Grid container spacing={2.5} sx={{ mb: 3 }}>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid xs={12} sm={6} md={3}>
           <Card variant="outlined" sx={{ bgcolor: '#ffffff' }}>
             <CardContent>
               <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
@@ -137,7 +137,7 @@ export const AdminSystem: React.FC = () => {
           </Card>
         </Grid>
 
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid xs={12} sm={6} md={3}>
           <Card variant="outlined" sx={{ bgcolor: '#ffffff' }}>
             <CardContent>
               <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
@@ -156,7 +156,7 @@ export const AdminSystem: React.FC = () => {
           </Card>
         </Grid>
 
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid xs={12} sm={6} md={3}>
           <Card variant="outlined" sx={{ bgcolor: '#ffffff' }}>
             <CardContent>
               <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
@@ -175,7 +175,7 @@ export const AdminSystem: React.FC = () => {
           </Card>
         </Grid>
 
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid xs={12} sm={6} md={3}>
           <Card variant="outlined" sx={{ bgcolor: '#ffffff' }}>
             <CardContent>
               <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
@@ -257,7 +257,7 @@ export const AdminSystem: React.FC = () => {
 
       {/* Operational Controls & FOTA */}
       <Grid container spacing={2.5}>
-        <Grid item xs={12} md={6}>
+        <Grid xs={12} md={6}>
           <Paper variant="outlined" sx={{ p: 2.5, bgcolor: '#ffffff', borderRadius: 2 }}>
             <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 1.5 }}>
               Hybrid Resiliency & Offline-First Controls
@@ -326,7 +326,7 @@ export const AdminSystem: React.FC = () => {
           </Paper>
         </Grid>
 
-        <Grid item xs={12} md={6}>
+        <Grid xs={12} md={6}>
           <Paper variant="outlined" sx={{ p: 2.5, bgcolor: '#ffffff', borderRadius: 2 }}>
             <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 1.5 }}>
               Firmware-Over-The-Air (FOTA) Sensor Node Fleet

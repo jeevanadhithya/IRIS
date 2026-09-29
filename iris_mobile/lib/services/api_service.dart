@@ -1,10 +1,18 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/hazard_models.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'dart:io' show Platform;
 
 class ApiService {
   // Use localhost or standard Android emulator / LAN IP
-  static const String baseUrl = 'http://localhost:3009/api';
+  static String get baseUrl {
+    if (kIsWeb) return 'http://localhost:3009/api';
+    try {
+      if (Platform.isAndroid) return 'http://10.0.2.2:3009/api';
+    } catch (_) {}
+    return 'http://localhost:3009/api';
+  }
 
   // Singleton pattern
   static final ApiService _instance = ApiService._internal();

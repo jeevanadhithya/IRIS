@@ -17,7 +17,8 @@ import {
   DialogContent, 
   DialogActions, 
   TextField, 
-  MenuItem 
+  MenuItem,
+  Grid
 } from '@mui/material';
 import { 
   Sensors as SensorIcon, 
@@ -201,7 +202,7 @@ export const AdminSensors: React.FC = () => {
             size="small"
           />
           <Grid container spacing={2}>
-            <Grid item xs={6}>
+            <Grid xs={6}>
               <TextField
                 fullWidth
                 label="Latitude"
@@ -210,7 +211,7 @@ export const AdminSensors: React.FC = () => {
                 size="small"
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid xs={6}>
               <TextField
                 fullWidth
                 label="Longitude"

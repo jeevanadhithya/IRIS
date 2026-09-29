@@ -43,7 +43,63 @@ export const UserMap: React.FC = () => {
   const labelsLayerRef = useRef<L.TileLayer | null>(null);
   const overlayGroupRef = useRef<L.LayerGroup | null>(null);
 
-  const citizenPos: [number, number] = [31.0390, 78.8938];
+  // DYNAMIC GEOLOCATION
+  const [citizenPos, setCitizenPos] = useState<[number, number]>([31.0390, 78.8938]);
+  const [autoTriggered, setAutoTriggered] = useState(false);
+  const [userPhone, setUserPhone] = useState('+919942373735');
+
+  // Haversine Distance Formula (meters)
+  const getDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
+    const R = 6371e3;
+    const p1 = lat1 * Math.PI / 180;
+    const p2 = lat2 * Math.PI / 180;
+    const dp = (lat2 - lat1) * Math.PI / 180;
+    const dl = (lon2 - lon1) * Math.PI / 180;
+    const a = Math.sin(dp / 2) * Math.sin(dp / 2) + Math.cos(p1) * Math.cos(p2) * Math.sin(dl / 2) * Math.sin(dl / 2);
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  };
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(
+        (position) => {
+          const lat = position.coords.latitude;
+          const lng = position.coords.longitude;
+          setCitizenPos([lat, lng]);
+
+          // Auto-trigger if hazard within 400m
+          if (!autoTriggered && riskAssessments.length > 0) {
+            for (const hazard of riskAssessments) {
+              if (hazard.coordinates) {
+                const dist = getDistance(lat, lng, hazard.coordinates.latitude, hazard.coordinates.longitude);
+                if (dist <= 400) {
+                  setAutoTriggered(true);
+                  handleManualTrigger(hazard.hazardType);
+                  alert(`⚠️ AUTO-ALERT: You are within 400m of a ${hazard.hazardType}! Emergency Twilio broadcast triggered.`);
+                  break;
+                }
+              }
+            }
+          }
+        },
+        (err) => console.warn('Geolocation blocked. Using default coords.'),
+        { enableHighAccuracy: true, maximumAge: 0 }
+      );
+    }
+  }, [riskAssessments, autoTriggered]);
+
+  const handleManualTrigger = async (disasterType: string) => {
+    try {
+      const res = await fetch('/api/notifications/call', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ disasterType, toNumber: userPhone })
+      });
+      if (res.ok) alert(`Twilio ${disasterType} alert sent successfully to ${userPhone}!`);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   useEffect(() => {
     if (!mapContainerRef.current || mapRef.current) return;
@@ -64,7 +120,7 @@ export const UserMap: React.FC = () => {
       map.remove();
       mapRef.current = null;
     };
-  }, []);
+  }, []); // Intentionally mount once, pos will update via markers
 
   const updateBasemap = (type: 'SATELLITE' | 'STREET', targetMap?: L.Map) => {
     const map = targetMap || mapRef.current;
@@ -253,6 +309,15 @@ export const UserMap: React.FC = () => {
             </>
           )}
         </Stack>
+      </Box>
+
+      {/* Manual Twilio Trigger Panel */}
+      <Box sx={{ mb: 3, display: 'flex', gap: 1, flexWrap: 'wrap', bgcolor: '#f1f5f9', p: 1.5, borderRadius: 2, border: '1px solid #cbd5e1' }}>
+        <Typography variant="subtitle2" sx={{ width: '100%', color: '#334155', fontWeight: 800 }}>🚨 Manual Twilio Alerts (DMS)</Typography>
+        <Button variant="contained" sx={{ bgcolor: '#0284c7' }} size="small" onClick={() => handleManualTrigger('flood')}>Broadcast Flood</Button>
+        <Button variant="contained" sx={{ bgcolor: '#b45309' }} size="small" onClick={() => handleManualTrigger('earthquake')}>Broadcast Earthquake</Button>
+        <Button variant="contained" sx={{ bgcolor: '#64748b' }} size="small" onClick={() => handleManualTrigger('cyclone')}>Broadcast Cyclone</Button>
+        <Button variant="contained" sx={{ bgcolor: '#dc2626' }} size="small" onClick={() => handleManualTrigger('landslide')}>Broadcast Landslide</Button>
       </Box>
 
       {/* Map Surface */}

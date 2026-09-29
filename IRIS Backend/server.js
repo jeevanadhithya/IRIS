@@ -49,18 +49,19 @@ const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/iris';
 let mongoClient = null;
 let isConnected = false;
 
-async function getDB() {
-  if (!mongoClient && !isConnected) {
-    try {
-      mongoClient = new MongoClient(MONGODB_URI, { serverSelectionTimeoutMS: 2500 });
-      await mongoClient.connect();
-      isConnected = true;
-      console.log('[IRIS DB] Connected to MongoDB Atlas Cluster0');
-    } catch (err) {
-      console.warn('[IRIS DB] MongoDB Atlas unavailable. Falling back to High-Speed In-Memory Store:', err.message);
-      isConnected = false;
-    }
+// Connect immediately on startup
+(async function initDB() {
+  try {
+    mongoClient = new MongoClient(MONGODB_URI, { serverSelectionTimeoutMS: 5000 });
+    await mongoClient.connect();
+    isConnected = true;
+    console.log('✅ [IRIS DB] SUCCESSFULLY CONNECTED to MongoDB Database.');
+  } catch (err) {
+    console.error('❌ [IRIS DB] FAILED to connect to MongoDB. Using In-Memory Fallback. Error:', err.message);
   }
+})();
+
+async function getDB() {
   return isConnected && mongoClient ? mongoClient.db('GEOSENSE') : null;
 }
 
@@ -308,6 +309,18 @@ app.post('/api/notifications/sms', async (req, res) => {
 // ==========================================
 // 3. SENSORS & PHYSICAL/VIRTUAL TELEMETRY
 // ==========================================
+app.get('/api/telemetry', (req, res) => {
+  res.json({
+      riverStage: 4.95,
+      riverThreshold: 5.50,
+      rainfall: 92.1,
+      porePressure: 45.2,
+      aqi: 110,
+      timestamp: new Date().toISOString(),
+      status: 'high'
+  });
+});
+
 app.get('/api/sensors', (req, res) => {
   res.json(memoryStore.sensors);
 });

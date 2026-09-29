@@ -43,6 +43,7 @@ import {
   CloudRain,
 } from "lucide-react";
 import CesiumSelectedAreaRainOverlay from "../simulation/CesiumSelectedAreaRainOverlay";
+import FlashFloodOverlay from "../simulation/FlashFloodOverlay";
 import { toast } from "sonner";
 import { generateCirclePolygon } from "@/lib/gisUtils";
 import {
@@ -2731,6 +2732,13 @@ export function CesiumDigitalTwinViewer({
         windSpeedKmh={simWindSpeed}
         groundHeight={groundHeightMeters}
         isFlatView={viewMode === "flat"}
+      />
+
+      <FlashFloodOverlay
+        viewer={cesiumViewer || viewerRef.current}
+        polygonCoords={getActivePolygon()}
+        active={Boolean(rainActive)}
+        waterLevel={(groundHeightMeters || 0) + (simRainIntensity * 0.1)}
       />
 
       {/* Loading Overlay */}

@@ -3,6 +3,8 @@ import '../models/hazard_models.dart';
 import '../services/api_service.dart';
 import '../services/location_service.dart';
 import '../theme/iris_theme.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -18,10 +20,17 @@ class _MapScreenState extends State<MapScreen> {
   List<EvacuationCorridor> _corridors = [];
   String _selectedCorridorId = 'COR-A';
   bool _isNavigating = false;
+  late final WebViewController _webController;
 
   @override
   void initState() {
     super.initState();
+    
+    _webController = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(const Color(0x00000000))
+      ..loadRequest(Uri.parse('https://your-vercel-frontend-domain.vercel.app'));
+
     _locationService.addListener(_onLocationUpdate);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
@@ -199,128 +208,10 @@ class _MapScreenState extends State<MapScreen> {
 
   Widget _buildMapCanvas() {
     return Container(
-      height: 210,
+      height: 250,
       width: double.infinity,
       color: IrisTheme.surfaceMuted,
-      child: Stack(
-        children: [
-          // Background Grid / Terrain pattern
-          CustomPaint(
-            size: const Size(double.infinity, 210),
-            painter: _TerrainPainter(),
-          ),
-
-          // User Pin
-          Positioned(
-            left: 70,
-            bottom: 60,
-            child: Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  decoration: BoxDecoration(
-                    color: IrisTheme.primaryBlue,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Text(
-                    'You (${_locationService.latitude.toStringAsFixed(3)}°, ${_locationService.longitude.toStringAsFixed(3)}°)',
-                    style: const TextStyle(color: Colors.white, fontSize: 9, fontWeight: FontWeight.w700),
-                  ),
-                ),
-                const Icon(Icons.person_pin_circle, color: IrisTheme.primaryBlue, size: 30),
-              ],
-            ),
-          ),
-
-          // Hazard Zone Marker
-          Positioned(
-            left: 170,
-            top: 40,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                color: IrisTheme.dangerRed.withOpacity(0.9),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: const [
-                  Icon(Icons.water, color: Colors.white, size: 12),
-                  SizedBox(width: 4),
-                  Text('Inundation 1.2m', style: TextStyle(color: Colors.white, fontSize: 9, fontWeight: FontWeight.w700)),
-                ],
-              ),
-            ),
-          ),
-
-          // Shelter Pin
-          Positioned(
-            right: 40,
-            top: 30,
-            child: Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  decoration: BoxDecoration(
-                    color: IrisTheme.safeGreen,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: const Text('St. Mary Shelter', style: TextStyle(color: Colors.white, fontSize: 9, fontWeight: FontWeight.w700)),
-                ),
-                const Icon(Icons.night_shelter_rounded, color: IrisTheme.safeGreen, size: 28),
-              ],
-            ),
-          ),
-
-          // Map Control Buttons
-          Positioned(
-            right: 12,
-            bottom: 12,
-            child: Column(
-              children: [
-                _buildMapMiniBtn(
-                  Icons.my_location,
-                  tooltip: 'Recenter GPS',
-                  onTap: () async {
-                    final pos = await _locationService.refreshLocation();
-                    if (mounted && pos != null) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Live GPS: ${pos.latitude.toStringAsFixed(4)}° N, ${pos.longitude.toStringAsFixed(4)}° E (±${pos.accuracy.toStringAsFixed(1)}m)'),
-                          backgroundColor: IrisTheme.safeGreen,
-                          duration: const Duration(seconds: 2),
-                        ),
-                      );
-                    }
-                  },
-                ),
-                const SizedBox(height: 6),
-                _buildMapMiniBtn(Icons.layers_outlined),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildMapMiniBtn(IconData icon, {VoidCallback? onTap, String? tooltip}) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Tooltip(
-        message: tooltip ?? '',
-        child: Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-            boxShadow: [
-              BoxShadow(color: Colors.black.withOpacity(0.08), blurRadius: 4, offset: const Offset(0, 2)),
-            ],
-          ),
-          child: Icon(icon, size: 18, color: IrisTheme.primaryBlue),
-        ),
-      ),
+      child: WebViewWidget(controller: _webController),
     );
   }
 
@@ -556,3 +447,4 @@ class _TerrainPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
+

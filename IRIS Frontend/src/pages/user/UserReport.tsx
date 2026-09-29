@@ -122,7 +122,7 @@ export const UserReport: React.FC = () => {
             <form onSubmit={handleSubmit}>
               <Grid container spacing={2.5}>
                 {/* Primary Category */}
-                <Grid item xs={12} sm={6}>
+                <Grid xs={12} sm={6}>
                   <TextField
                     select
                     fullWidth
@@ -142,7 +142,7 @@ export const UserReport: React.FC = () => {
                 </Grid>
 
                 {/* Sub Category */}
-                <Grid item xs={12} sm={6}>
+                <Grid xs={12} sm={6}>
                   <TextField
                     select
                     fullWidth
@@ -158,7 +158,7 @@ export const UserReport: React.FC = () => {
                 </Grid>
 
                 {/* Severity */}
-                <Grid item xs={12} sm={6}>
+                <Grid xs={12} sm={6}>
                   <TextField
                     select
                     fullWidth
@@ -175,7 +175,7 @@ export const UserReport: React.FC = () => {
                 </Grid>
 
                 {/* Location */}
-                <Grid item xs={12} sm={6}>
+                <Grid xs={12} sm={6}>
                   <TextField
                     fullWidth
                     label="Location / Landmark"
@@ -189,7 +189,7 @@ export const UserReport: React.FC = () => {
                 </Grid>
 
                 {/* Detailed Description */}
-                <Grid item xs={12}>
+                <Grid xs={12}>
                   <TextField
                     fullWidth
                     label="Detailed Ground Description"
@@ -203,7 +203,7 @@ export const UserReport: React.FC = () => {
                 </Grid>
 
                 {/* Photo Upload Attachment Placeholder */}
-                <Grid item xs={12}>
+                <Grid xs={12}>
                   <Box sx={{ p: 2, border: '2px dashed #cbd5e1', borderRadius: 2, textAlign: 'center', bgcolor: '#f8fafc' }}>
                     <PhotoIcon sx={{ fontSize: 36, color: '#94a3b8', mb: 0.5 }} />
                     <Typography variant="body2" sx={{ fontWeight: 600, color: '#334155' }}>
@@ -220,7 +220,7 @@ export const UserReport: React.FC = () => {
                 </Grid>
 
                 {/* Submit Action */}
-                <Grid item xs={12}>
+                <Grid xs={12}>
                   <Button
                     type="submit"
                     fullWidth

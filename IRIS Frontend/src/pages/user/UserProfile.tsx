@@ -99,7 +99,7 @@ export const UserProfile: React.FC = () => {
             </Typography>
 
             <Grid container spacing={2} sx={{ mb: 3 }}>
-              <Grid item xs={12} sm={6}>
+              <Grid xs={12} sm={6}>
                 <TextField
                   fullWidth
                   label="Full Name"
@@ -109,7 +109,7 @@ export const UserProfile: React.FC = () => {
                   required
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid xs={12} sm={6}>
                 <TextField
                   fullWidth
                   label="Email Address"
@@ -120,7 +120,7 @@ export const UserProfile: React.FC = () => {
                   required
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid xs={12} sm={6}>
                 <TextField
                   fullWidth
                   label="Emergency Mobile Phone (SMS / IVR)"
@@ -130,7 +130,7 @@ export const UserProfile: React.FC = () => {
                   helperText="Used for automated high-priority voice and SMS alerts"
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid xs={12} sm={6}>
                 <TextField
                   fullWidth
                   label="Emergency Next-of-Kin Contact"
@@ -139,7 +139,7 @@ export const UserProfile: React.FC = () => {
                   size="small"
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid xs={12} sm={6}>
                 <TextField
                   select
                   fullWidth
