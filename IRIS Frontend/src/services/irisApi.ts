@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3009';
+const API_BASE = import.meta.env.VITE_API_URL || 'https://iris-backend-sih.vercel.app';
 
 export const apiClient = axios.create({
   baseURL: API_BASE,
@@ -11,6 +11,17 @@ export const apiClient = axios.create({
 });
 
 export const irisApi = {
+  // System Resilience & Risk Matrix (New PS-26178 Features)
+  getSystemResilience: async () => {
+    const res = await fetch(${API_BASE}/api/system/resilience);
+    return res.json();
+  },
+  
+  getRiskMatrix: async () => {
+    const res = await fetch(${API_BASE}/api/analytics/risk-matrix);
+    return res.json();
+  },
+
   // Auth
   login: async (credentials: { email: string; role?: string }) => {
     try {

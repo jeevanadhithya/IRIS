@@ -47,7 +47,7 @@ export const App: React.FC = () => {
   const { addIncident } = useIrisStore();
 
   useEffect(() => {
-    const socket = io('http://localhost:3009', { transports: ['websocket', 'polling'] });
+    const socket = io('https://iris-backend-sih.vercel.app', { transports: ['websocket', 'polling'] });
     socket.on('sos_triggered', (alert: any) => {
       addIncident({
         title: `SOS Alert: ${alert.place || 'Citizen Dispatch'}`,

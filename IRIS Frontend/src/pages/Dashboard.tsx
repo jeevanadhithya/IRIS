@@ -96,7 +96,7 @@ const Dashboard = () => {
     }
     try {
       triggerAlert(98);
-      const response = await fetch("http://localhost:3009/calluser", {
+      const response = await fetch("https://iris-backend-sih.vercel.app/calluser", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

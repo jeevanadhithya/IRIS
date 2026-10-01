@@ -75,7 +75,7 @@ export const UserNeedHelp: React.FC = () => {
     });
 
     // Also send to backend so mobile app and other web clients get real-time sync
-    fetch('http://localhost:3009/api/sos', {
+    fetch('https://iris-backend-sih.vercel.app/api/sos', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

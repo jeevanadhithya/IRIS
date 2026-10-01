@@ -7,11 +7,11 @@ import 'dart:io' show Platform;
 class ApiService {
   // Use localhost or standard Android emulator / LAN IP
   static String get baseUrl {
-    if (kIsWeb) return 'http://localhost:3009/api';
+    if (kIsWeb) return 'https://iris-backend-sih.vercel.app/api';
     try {
-      if (Platform.isAndroid) return 'http://10.0.2.2:3009/api';
+      if (Platform.isAndroid) return 'https://iris-backend-sih.vercel.app/api';
     } catch (_) {}
-    return 'http://localhost:3009/api';
+    return 'https://iris-backend-sih.vercel.app/api';
   }
 
   // Singleton pattern

@@ -1071,6 +1071,46 @@ app.post('/api/digital-twin/user-activity', (req, res) => {
   res.json({ success: true, logged_at: new Date().toISOString() });
 });
 
+
+// ==========================================
+// NEW FEATURE: AI System Resilience & Risk Matrix (PS-26178)
+// ==========================================
+app.get('/api/system/resilience', (req, res) => {
+  res.json({
+    networkStatus: 'DEGRADED_TOLERANT',
+    edgeNodesActive: memoryStore.sensors.filter(s => s.status === 'online').length,
+    edgeNodesTotal: memoryStore.sensors.length,
+    cloudAnalytics: 'ONLINE',
+    latencyMs: Math.floor(Math.random() * 40) + 10,
+    failoverState: 'ACTIVE_IN_MEMORY'
+  });
+});
+
+app.get('/api/analytics/risk-matrix', (req, res) => {
+  // Calculates a dynamic risk index based on active incidents and telemetry
+  const criticalIncidents = memoryStore.incidents.filter(i => i.severity === 'CRITICAL').length;
+  const highRiskAreas = memoryStore.riskAssessments.filter(r => r.riskScore > 75).length;
+  
+  let nationalRiskLevel = 'ELEVATED';
+  let threatScore = 45;
+  
+  if (criticalIncidents > 2) {
+    nationalRiskLevel = 'SEVERE';
+    threatScore = 85;
+  } else if (criticalIncidents > 0 || highRiskAreas > 2) {
+    nationalRiskLevel = 'HIGH';
+    threatScore = 65;
+  }
+  
+  res.json({
+    timestamp: new Date().toISOString(),
+    nationalRiskLevel,
+    threatScore,
+    activeThreats: memoryStore.incidents.length,
+    primaryHazard: criticalIncidents > 0 ? memoryStore.incidents[0].type : 'NONE'
+  });
+});
+
 // Start Server
 if (!process.env.VERCEL) {
   server.listen(PORT, () => {

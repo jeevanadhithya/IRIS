@@ -1,4 +1,6 @@
-<div align="center">
+﻿import sys
+
+content = '''<div align="center">
 
 <img src="iris_mobile/assets/images/iris_logo.png" alt="IRIS Logo" width="190" style="border-radius: 24px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);" />
 
@@ -91,3 +93,7 @@ If you want to spin the whole project up on your own machine instead of using ou
 <div align="center">
   <i>Built by Team Tech Titens for SIH 2026</i>
 </div>
+'''
+
+with open('README.md', 'w', encoding='utf-8') as f:
+    f.write(content)
