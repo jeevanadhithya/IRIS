@@ -207,7 +207,166 @@ const memoryStore = {
 // ==========================================
 // 1. HEALTH & SYSTEM DIAGNOSTICS
 // ==========================================
+
+// ==========================================
+// Root Dashboard Route (Vercel Backend UI)
+// ==========================================
+app.get('/', (req, res) => {
+  res.send(
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IRIS Backend Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .status-online { background-color: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+        .status-configured { background-color: #fef9c3; color: #854d0e; border: 1px solid #fef08a; }
+        .dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+        .dot-green { background-color: #22c55e; }
+        .route-card { transition: transform 0.2s; }
+        .route-card:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body class="min-h-screen p-8">
+    <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-slate-800 mb-3 tracking-tight">IRIS Backend Services</h1>
+            <p class="text-slate-500 font-medium">Multi-Hazard Monitoring & Edge Analytics API</p>
+            
+            <!-- Global Status Pills -->
+            <div class="flex flex-wrap justify-center gap-4 mt-8">
+                <div class="bg-white px-4 py-2 rounded-full shadow-sm border border-slate-200 text-sm font-semibold flex items-center">
+                    <span class="mr-2">🗄️ Database:</span> 
+                    <span class="text-green-600 flex items-center"><span class="dot dot-green"></span>CONNECTED</span>
+                </div>
+                <div class="bg-white px-4 py-2 rounded-full shadow-sm border border-slate-200 text-sm font-semibold flex items-center">
+                    <span class="mr-2">📞 Twilio SMS/Voice:</span> 
+                    <span class="text-green-600 flex items-center"><span class="dot dot-green"></span>CONFIGURED</span>
+                </div>
+                <div class="bg-white px-4 py-2 rounded-full shadow-sm border border-slate-200 text-sm font-semibold flex items-center">
+                    <span class="mr-2">☁️ Serverless:</span> 
+                    <span class="text-slate-600">Vercel Edge</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <!-- Column 1: Core Telemetry -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 route-card">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-lg font-bold flex items-center gap-2">
+                        <span class="text-blue-500">📡</span> Edge Telemetry
+                    </h2>
+                    <span class="status-badge status-online"><span class="dot dot-green"></span>ONLINE</span>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                        <span class="text-sm font-semibold text-slate-700">Health Check</span>
+                        <code class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-500">/api/health</code>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                        <span class="text-sm font-semibold text-slate-700">Live Telemetry</span>
+                        <code class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-500">/api/telemetry</code>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                        <span class="text-sm font-semibold text-slate-700">Sensor Nodes</span>
+                        <code class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-500">/api/sensors</code>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                        <span class="text-sm font-semibold text-slate-700">Virtual Sensor Inject</span>
+                        <code class="text-xs bg-amber-100 text-amber-700 px-2 py-1 rounded">POST /virtual</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 2: AI & Risk Analytics -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 route-card">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-lg font-bold flex items-center gap-2">
+                        <span class="text-purple-500">🧠</span> AI & Intelligence
+                    </h2>
+                    <span class="status-badge status-online"><span class="dot dot-green"></span>ONLINE</span>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                        <span class="text-sm font-semibold text-slate-700">Risk Matrix</span>
+                        <code class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-500">/api/analytics/risk-matrix</code>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                        <span class="text-sm font-semibold text-slate-700">System Resilience</span>
+                        <code class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-500">/api/system/resilience</code>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                        <span class="text-sm font-semibold text-slate-700">Risk Assessments</span>
+                        <code class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-500">/api/risk/assessments</code>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                        <span class="text-sm font-semibold text-slate-700">Simulation Scenarios</span>
+                        <code class="text-xs bg-amber-100 text-amber-700 px-2 py-1 rounded">POST /simulation</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 3: Response & Evacuation -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 route-card">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-lg font-bold flex items-center gap-2">
+                        <span class="text-rose-500">🚨</span> Response Network
+                    </h2>
+                    <span class="status-badge status-online"><span class="dot dot-green"></span>ONLINE</span>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                        <span class="text-sm font-semibold text-slate-700">Trigger SOS</span>
+                        <code class="text-xs bg-rose-100 text-rose-700 px-2 py-1 rounded">POST /api/sos</code>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                        <span class="text-sm font-semibold text-slate-700">Safe Routes</span>
+                        <code class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-500">/api/routes/safe</code>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                        <span class="text-sm font-semibold text-slate-700">Active Shelters</span>
+                        <code class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-500">/api/shelters</code>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                        <span class="text-sm font-semibold text-slate-700">Twilio Broadcast</span>
+                        <code class="text-xs bg-amber-100 text-amber-700 px-2 py-1 rounded">POST /calluser</code>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="text-center mt-12 text-sm text-slate-400 font-medium">
+            IRIS Serverless Core • Connected to Web Dashboard & Mobile Citizen App
+        </div>
+    </div>
+</body>
+</html>
+);
+});
+
 app.get('/api/health', (req, res) => {
+
   res.json({
     status: 'ok',
     system: 'IRIS - Intelligent Resilient Infrastructure & Safety',
