@@ -1,4 +1,6 @@
-<div align="center">
+﻿import sys
+
+content = '''<div align="center">
 
 <img src="iris_mobile/assets/images/iris_logo.png" alt="IRIS Logo" width="190" style="border-radius: 24px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);" />
 
@@ -133,3 +135,7 @@ flutter run
 <div align="center">
   <i>Built with passion by the IRIS Team for a safer, resilient tomorrow (Smart India Hackathon 2026).</i>
 </div>
+'''
+
+with open('README.md', 'w', encoding='utf-8') as f:
+    f.write(content)
